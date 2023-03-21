@@ -20,7 +20,14 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "test:lint": "eslint --ext .ts,.tsx",
-    "test:type": "tsc --noEmit"
+    "test:type": "tsc --noEmit",
+    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx|scss|css|jsx)\" --write"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -44,6 +51,9 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.3.0"
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.6"
   }
 }
