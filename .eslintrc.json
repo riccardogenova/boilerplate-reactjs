@@ -12,6 +12,7 @@
     "eslint:recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "overrides": [],
@@ -23,13 +24,62 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "import", "react-hooks", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "import",
+    "react-hooks",
+    "jsx-a11y",
+    "@typescript-eslint"
+  ],
+
   "rules": {
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/default-param-last": "error",
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/lines-between-class-members": "error",
-    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      //bollean with prefix "is", "should", "has", "can", "did", "will"
+      {
+        "selector": "variable",
+        "types": ["boolean"],
+        "format": ["PascalCase"],
+        "prefix": ["is", "should", "has", "can", "did", "will"]
+      },
+      //const only write in camelCase or UPPER_CASE
+      {
+        "selector": "variable",
+        "modifiers": ["const"],
+        "format": ["camelCase", "UPPER_CASE"]
+      },
+      {
+        //Enforce that type parameters (generics) are prefixed with
+        "selector": "typeParameter",
+        "format": ["PascalCase"],
+        "prefix": ["T"]
+      },
+      //Enforce that interface names do not begin with an I
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": false
+        }
+      },
+      //Enforce that variable and function names are in camelCase
+      {
+        "selector": ["variable"],
+        "format": ["camelCase"],
+        "leadingUnderscore": "allow"
+      },
+      //Ignore destructured names
+      {
+        "selector": "variable",
+        "modifiers": ["destructured"],
+        "format": null
+      }
+    ],
     "@typescript-eslint/no-empty-function": "error",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-inferrable-types": "error",
