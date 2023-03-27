@@ -1,8 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useAppTranslation } from "./i18n/hooks";
 
 function App() {
+  const { t } = useAppTranslation();
+
   return (
     <div className="App">
       <header className="App-header">
@@ -16,7 +18,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          {t("example")}
         </a>
       </header>
     </div>
