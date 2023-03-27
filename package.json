@@ -31,7 +31,8 @@
     "test:lint": "eslint --ext .ts,.tsx",
     "test:type": "tsc --noEmit",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx|scss|css|jsx)\" --write",
-    "generate:release": "standard-version"
+    "generate:release": "standard-version",
+    "patch": "patch-package"
   },
   "eslintConfig": {
     "extends": [
@@ -65,6 +66,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.6",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "patch-package": "^6.5.1"
   }
 }
