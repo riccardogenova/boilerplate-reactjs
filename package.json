@@ -26,13 +26,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "test:lint": "eslint --ext .ts,.tsx",
     "test:type": "tsc --noEmit",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx|scss|css|jsx)\" --write",
     "generate:release": "standard-version",
-    "patch": "patch-package"
+    "patch": "patch-package",
+    "postinstall": "husky install",
+    "lint": " eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +54,8 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "5.4.0",
     "eslint": "^8.36.0",
@@ -67,9 +70,17 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.6",
     "standard-version": "^9.5.0",
-    "patch-package": "^6.5.1"
+    "patch-package": "^6.5.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0"
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,js,jsx,tsx}": [
+      "yarn lint",
+      "yarn format"
+    ]
   }
 }

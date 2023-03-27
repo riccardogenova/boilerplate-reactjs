@@ -29,9 +29,9 @@
     "import",
     "react-hooks",
     "jsx-a11y",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "@typescript-eslint/eslint-plugin"
   ],
-
   "rules": {
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/default-param-last": "error",
