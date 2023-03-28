@@ -1,6 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
+/** @format */
 
-import { sliceGeneral } from "./example/slice";
+import { configureStore } from '@reduxjs/toolkit';
+
+import { sliceGeneral } from './example/slice';
 
 export const createStore = () => {
   const store = configureStore({

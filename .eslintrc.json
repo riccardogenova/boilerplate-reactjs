@@ -13,25 +13,21 @@
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:@typescript-eslint/eslint-recommended",
+    "prettier",
     "plugin:@typescript-eslint/recommended"
   ],
   "overrides": [],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.json"],
+    "tsconfigRootDir": "./"
   },
-  "plugins": [
-    "react",
-    "import",
-    "react-hooks",
-    "jsx-a11y",
-    "@typescript-eslint",
-    "@typescript-eslint/eslint-plugin"
-  ],
+  "plugins": ["react", "react-hooks", "jsx-a11y", "@typescript-eslint", "@typescript-eslint/eslint-plugin"],
   "rules": {
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/default-param-last": "error",
@@ -50,7 +46,7 @@
       {
         "selector": "variable",
         "modifiers": ["const"],
-        "format": ["camelCase", "UPPER_CASE"]
+        "format": ["camelCase", "UPPER_CASE", "PascalCase"]
       },
       {
         //Enforce that type parameters (generics) are prefixed with
@@ -80,6 +76,14 @@
         "format": null
       }
     ],
+    "@typescript-eslint/consistent-type-imports": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/triple-slash-reference": "off",
+    "no-param-reassign": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-empty-function": "error",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-inferrable-types": "error",
@@ -88,35 +92,47 @@
     "@typescript-eslint/no-unused-expressions": "error",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-use-before-define": "error",
-    "react/react-in-jsx-scope": "off",
-    "curly": "off",
-    "no-empty": "off",
+    "no-unused-vars": "error",
+    "curly": "error",
     "eqeqeq": "error",
     "import/default": "error",
     "import/export": "error",
-    "import/named": "off",
-    "import/namespace": "off",
+    "import/named": "error",
+    "import/namespace": "error",
     "import/no-duplicates": "error",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-named-as-default-member": "error",
     "import/no-unresolved": "error",
-    "import/no-unused-modules": "error",
+    "import/no-unused-modules": "off",
+    "import/prefer-default-export": "off",
     "no-alert": "error",
+    "no-async-promise-executor": "error",
     "no-duplicate-imports": "error",
-    "no-empty-function": "off",
-    "no-unused-vars": "error",
+    "no-empty-function": "error",
+    "no-empty": "error",
     "no-useless-escape": "error",
     "no-var": "error",
-    "import/no-anonymous-default-export": "off",
     "prefer-const": "error",
+    "prettier/prettier": [
+      "off",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "radix": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": "off",
     "react/display-name": "off",
+    "react/jsx-filename-extension": "off",
     "react/jsx-key": "error",
+    "react/jsx-props-no-spreading": "off",
     "react/no-unescaped-entities": "error",
     "react/prop-types": "off",
     "react/self-closing-comp": "error",
-    "import/no-named-as-default-member": "off",
-    "no-async-promise-executor": "warn",
-    "import/no-extraneous-dependencies": "warn",
+    "import/extensions": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/button-has-type": "warn",
+    "react/require-default-props": "off",
+    "react/no-array-index-key": "off",
     "no-console": "warn",
     "import/order": [
       "error",
