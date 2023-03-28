@@ -26,14 +26,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint:fix": "eslint --fix",
     "test:lint": "eslint --ext .ts,.tsx",
     "test:type": "tsc --noEmit",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx|scss|css|jsx)\" --write",
     "generate:release": "standard-version",
     "patch": "patch-package",
     "postinstall": "husky install",
-    "lint": " eslint ."
+    "lint": "tsc --project  ./tsconfig.json --noEmit && eslint  --ext=jsx,ts,tsx,js,css,scss"
   },
   "eslintConfig": {
     "extends": [

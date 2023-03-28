@@ -1,6 +1,6 @@
 /** @format */
 
-import { translationsGeneral } from "./general";
+import { translationsGeneral } from './general';
 
 export const translations = {
   ...translationsGeneral,
