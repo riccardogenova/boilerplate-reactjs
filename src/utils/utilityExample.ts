@@ -1,3 +1,3 @@
-export const utilityExample = () => {
-  return null;
-};
+/** @format */
+
+export const utilityExample = () => null;
