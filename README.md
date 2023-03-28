@@ -1,3 +1,12 @@
+# Index
+
+- [Naming Convention](@docs/NAMING_CONVENTION.md)
+- [Git Flow](@docs/GIT_FLOW.md)
+
+### Tools used
+
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
+
 # introduction
 
 The application is developed in react using the [typescript](https://www.typescriptlang.org). template.
