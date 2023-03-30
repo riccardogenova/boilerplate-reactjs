@@ -30,13 +30,12 @@
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx|scss|css|jsx)\" --write",
     "generate:release": "standard-version",
     "patch": "patch-package",
-    "postinstall": "husky install",
-    "lint": "tsc --project  ./tsconfig.json --noEmit && eslint  --ext=jsx,ts,tsx,js,css,scss",
-    "lint:fix": "eslint --fix",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test dev http://localhost:3000 cypress",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless"
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless",
+    "postinstall":  "node ./bin/postInstall",
+    "lint": "tsc --project  ./tsconfig.json --noEmit && eslint  --ext=jsx,ts,tsx,js,css,scss"
   },
   "eslintConfig": {
     "extends": [
