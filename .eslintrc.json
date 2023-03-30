@@ -16,7 +16,16 @@
     "prettier",
     "plugin:@typescript-eslint/recommended"
   ],
-  "overrides": [],
+  "overrides": [
+    {
+      "files": ["cypress/**/*.ts"],
+      "plugins": ["cypress"],
+      "extends": ["plugin:cypress/recommended"],
+      "parserOptions": {
+        "project": "./cypress/tsconfig.json"
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -29,6 +38,7 @@
   },
   "plugins": ["react", "react-hooks", "jsx-a11y", "@typescript-eslint", "@typescript-eslint/eslint-plugin"],
   "rules": {
+    "react/function-component-definition": "off",
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/default-param-last": "error",
     "@typescript-eslint/indent": "off",
