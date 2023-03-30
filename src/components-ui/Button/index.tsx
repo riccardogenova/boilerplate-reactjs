@@ -12,7 +12,6 @@ const StyledButton = styled.button(({ disabled }: { disabled: boolean }) => ({
   alignItems: 'center',
   outline: 'none',
   height: '32px',
-  width: '100%',
   background: disabled ? 'grey' : 'blue',
   border: 'none',
   boxShadow: disabled ? 'none' : `1px 2px 0px blue`,

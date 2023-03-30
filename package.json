@@ -36,8 +36,9 @@
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test dev http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless",
-    "postinstall": "node ./bin/postInstall",
-    "lint": "tsc --project  ./tsconfig.json --noEmit && eslint  --ext=jsx,ts,tsx,js,css,scss"
+    "postinstall":  "node ./bin/postInstall",
+    "lint": "tsc --project  ./tsconfig.json --noEmit && eslint  --ext=jsx,ts,tsx,js,css,scss",
+    "storybook": "start-storybook -p 6006 -s public"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +67,10 @@
     "@cypress/webpack-dev-server": "^3.4.0",
     "@percy/cypress": "^3.1.2",
     "@testing-library/cypress": "^9.0.0",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-knobs": "^6.4.0",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/react": "^6.5.16",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
