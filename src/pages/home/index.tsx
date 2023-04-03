@@ -24,7 +24,7 @@ export const Home = () => {
     <StyledHeader>
       <img src={logo} className="App-logo" alt="logo" />
       <p>
-        Edit <code>src/App.tsx</code> and save to reload.
+        {t('edit')} <code>src/App.tsx</code> {t('save')}
       </p>
       <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
         {t('example')}
