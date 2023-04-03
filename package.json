@@ -23,7 +23,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:type": "tsc --noEmit",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx|scss|css|jsx)\" --write",
     "generate:release": "standard-version",
     "patch": "patch-package",
@@ -31,10 +30,11 @@
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test dev http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless",
-    "postinstall":  "node ./bin/postInstall",
-    "lint": "tsc --project  ./tsconfig.json --noEmit && eslint  --ext=jsx,ts,tsx,js,css,scss",
     "storybook": "start-storybook -p 6006 -s public",
-    "build:storybook": "build-storybook -s public"
+    "postinstall": "node ./bin/postInstall",
+    "lint": "tsc --project  ./tsconfig.json --noEmit && eslint  --ext=jsx,ts,tsx,js,css,scss",
+    "build:storybook": "build-storybook -s public",
+    "create-component": "node create-component.js"
   },
   "eslintConfig": {
     "extends": [
@@ -97,12 +97,13 @@
     "lint-staged": "^13.2.0",
     "patch-package": "^6.5.1",
     "prettier": "^2.8.6",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "inquirer": "8.0.0"
   },
   "lint-staged": {
     "./src/**/*.{ts,js,jsx,tsx}": [
-      "yarn lint",
-      "yarn format"
+      "yarn format",
+      "yarn lint"
     ]
   }
 }
