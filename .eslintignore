@@ -1,3 +1,4 @@
 babel.config.js
 jest.config.js
 postinstall
+create-component.js

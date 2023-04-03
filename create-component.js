@@ -1,0 +1,206 @@
+#!/usr/bin/env node
+/** @format */
+
+const fs = require('fs');
+const path = require('path');
+const inquirer = require('inquirer');
+
+const COMPONENT_TYPES = {
+  'components-ui': 'UI component',
+  'components-shared': 'Shared component',
+  utils: 'Utility function',
+  hooks: 'Hook function',
+};
+
+function createComponent() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        name: 'componentType',
+        message: 'Select file type:',
+        choices: Object.values(COMPONENT_TYPES),
+      },
+      {
+        type: 'input',
+        name: 'componentName',
+        message: 'Enter file name:',
+        validate: (input, answers) => {
+          if (answers.componentType === 'UI component') {
+            if (/^UI([A-Z][a-z]*)+$/.test(input)) return true;
+            else
+              return 'UI component must begin with "UI" and the next letter in UPPERCASE and may only include letters, numbers, underscores and hashes.';
+          } else if (answers.componentType === 'Shared component') {
+            if (/^([A-Z][a-z]*)+$/.test(input)) return true;
+            else
+              return 'shared component must begin with UPPERCASE letter and may only include letters, numbers, underscores and hashes.';
+          } else if (answers.componentType === 'Utility function') {
+            if (/^utility([A-Z][a-z]*)+$/.test(input)) return true;
+            else
+              return 'utility function must begin with "utility" and the next letter in UPPERCASE and may only include letters, numbers, underscores and hashes.';
+          } else if (/^use([A-Z][a-z]*)+$/.test(input)) return true;
+          else
+            return 'hook function must begin with "use" and the next letter in UPPERCASE and may only include letters, numbers, underscores and hashes.';
+        },
+      },
+      {
+        type: 'confirm',
+        name: 'hasTest',
+        message: 'Would you like to add this component to unit test?',
+        when: answers => answers.componentType === 'UI component' || answers.componentType === 'Shared component',
+      },
+      {
+        type: 'confirm',
+        name: 'hasStory',
+        message: 'Would you like to add this component to stories?',
+        when: answers => answers.componentType === 'UI component' || answers.componentType === 'Shared component',
+      },
+    ])
+    .then(({ componentName, componentType, hasTest, hasStory }) => {
+      const componentTypeKey = Object.keys(COMPONENT_TYPES).find(key => COMPONENT_TYPES[key] === componentType);
+      const dirPath = path.join(
+        process.cwd(),
+        componentTypeKey === 'components-ui'
+          ? `src/components-ui/${componentName.slice(2)}`
+          : componentTypeKey === 'components-shared'
+          ? `src/components-shared/${componentName}`
+          : componentTypeKey === 'utils'
+          ? 'src/utils'
+          : 'src/hooks',
+      );
+
+      const fileName = componentTypeKey === 'utils' || componentTypeKey === 'hooks' ? componentName : 'index';
+      const componentFilePath = path.join(
+        dirPath,
+        `${componentTypeKey === 'utils' || componentTypeKey === 'hooks' ? fileName + '.ts' : fileName + '.tsx'}`,
+      );
+
+      if (fs.existsSync(componentFilePath)) {
+        console.error(`Component "${componentName}" already exists!`);
+        process.exit(1);
+      }
+
+      fs.mkdirSync(dirPath, { recursive: true });
+
+      let componentContent = '';
+
+      if (componentTypeKey === 'components-ui') {
+        componentContent = `
+import { memo } from 'react';
+
+import styled from '@emotion/styled';
+
+import { useAppTranslation } from '../../i18n/hooks';
+import { TTranslationsGeneral } from '../../i18n/translations/general';
+
+// #region ::: STYLED
+const Styled${componentName.slice(2)}Container = styled.div\({
+/* Add your styles here */
+\});
+// #endregion  
+
+interface Props {
+  label?: TTranslationsGeneral;
+  /* Add your props here */
+}
+                    
+export const ${componentName} = memo(({ label= 'default' }: Props) => {
+  const { t } = useAppTranslation();
+
+  return <Styled${componentName.slice(2)}Container>{t(label)}</Styled${componentName.slice(2)}Container>
+});
+`;
+      } else if (componentTypeKey === 'components-shared') {
+        componentContent = `
+import { memo } from 'react';
+
+import styled from '@emotion/styled';
+
+import { useAppTranslation } from '../../i18n/hooks';
+import { TTranslationsGeneral } from '../../i18n/translations/general';
+
+// #region ::: STYLED
+const Styled${componentName}Container = styled.div\({
+/* Add your styles here */
+\});
+// #endregion  
+
+interface Props {
+  label?: TTranslationsGeneral;
+  /* Add your props here */
+}
+                    
+export const ${componentName} = memo(({ label= 'default' }: Props) => {
+  const { t } = useAppTranslation();
+
+  return <Styled${componentName}Container>{t(label)}</Styled${componentName}Container>
+});
+`;
+      } else if (componentTypeKey === 'utility') {
+        componentContent = `export const ${componentName} = () => {
+          // Add your utility function here
+        };
+        `;
+      } else if (componentTypeKey === 'hook') {
+        componentContent = `export const ${componentName} = () => {
+          // Add your hook function here
+          const count = 0;
+          return {
+            // Add your return here
+            count
+          }
+        };
+        `;
+      }
+
+      fs.writeFileSync(componentFilePath, componentContent);
+
+      console.log(`Component "${componentName}" created successfully as "${componentType}" files!`);
+
+      if (hasTest) {
+        componentContent = `
+  /** @format */
+import React from 'react';
+
+import { render } from '@testing-library/react';
+
+import { ${componentName} } from '../${componentTypeKey}/${
+          componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName
+        }';
+      
+describe('${componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName}', () => {
+  test('renders without errors', () => {
+    const { getByText } = render(<${componentName} label="Click Me" />);
+    const componentElement = getByText('Click Me');
+    expect(componentElement).toBeInTheDocument();
+  });
+});
+            
+`;
+        const componentFilePath = path.join(
+          'src/tests',
+          `${componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName}.test.jsx`,
+        );
+        fs.writeFileSync(componentFilePath, componentContent);
+      }
+      if (hasStory) {
+        componentContent = `
+import { ${componentName} } from '.';
+
+export default {
+  title: "Example/${componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName}",
+  component: ${componentName},
+}
+export const Component = () => <${componentName} />;
+        `;
+
+        const componentFilePath = path.join(
+          `src/${componentTypeKey}/${componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName}/`,
+          'index.stories.tsx',
+        );
+        fs.writeFileSync(componentFilePath, componentContent);
+      }
+    });
+}
+
+createComponent();

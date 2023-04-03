@@ -3,6 +3,7 @@
 type Translations = typeof translationsGeneral;
 
 export const translationsGeneral = {
+  default: { it: 'Inserisci il tuo testo', en: 'Insert your text' },
   example: { it: 'Scopri di più', en: 'About us' },
   about: { it: 'Informazioni', en: 'About' },
   navigation: { it: 'Esempio di navigazione', en: 'Navigation example' },
