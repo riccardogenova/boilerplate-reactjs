@@ -5,6 +5,8 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 import { useAppTranslation } from '../../i18n/hooks';
+import { selectorAuth } from '../../redux/auth/selectors';
+import { useAppSelector } from '../../redux/hooks';
 
 // #region ::: STYLED
 const StyledNav = styled.nav(({ theme }: { theme: Theme }) => ({
@@ -33,7 +35,10 @@ const StyledLink = styled(Link)(({ theme }: { theme: Theme }) => ({
 // #endregion
 
 export const Navbar = () => {
+  const { isAuthenticated } = useAppSelector(selectorAuth);
   const { t } = useAppTranslation();
+
+  if (!isAuthenticated) return null;
 
   return (
     <StyledNav>
