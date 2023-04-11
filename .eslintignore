@@ -3,3 +3,4 @@ jest.config.js
 jest.setup.js
 postinstall
 index.d.ts
+create-component.js
