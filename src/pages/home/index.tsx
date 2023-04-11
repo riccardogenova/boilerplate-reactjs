@@ -4,7 +4,10 @@ import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import logo from '../../assets/icons/logo.svg';
+import { UISpinner } from '../../components-ui/Spinner';
 import { useAppTranslation } from '../../i18n/hooks';
+import { selectorAuth } from '../../redux/auth/selectors';
+import { useAppSelector } from '../../redux/hooks';
 
 export const StyledHeader = styled.header(({ theme }: { theme: Theme }) => ({
   backgroundColor: theme.background,
@@ -19,6 +22,9 @@ export const StyledHeader = styled.header(({ theme }: { theme: Theme }) => ({
 
 export const Home = () => {
   const { t } = useAppTranslation();
+  const { isLoading } = useAppSelector(selectorAuth);
+
+  if (isLoading) return <UISpinner />;
 
   return (
     <StyledHeader>

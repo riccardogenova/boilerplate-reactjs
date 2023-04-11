@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 
 import { Global, css } from '@emotion/react';
-import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -12,7 +11,9 @@ import { SwitchTheme } from './components-shared/SwitchTheme';
 import { Page404 } from './pages/404';
 import { About } from './pages/about';
 import { Home } from './pages/home';
-import { store } from './redux/createStore';
+import { Login } from './pages/login';
+import { selectorAuth } from './redux/auth/selectors';
+import { useAppSelector } from './redux/hooks';
 import { ThemeProvider } from './theme/Provider';
 import { utilityGetTheme } from './utils/utilityGetTheme';
 
@@ -75,6 +76,7 @@ const globalStyles = css`
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const { isAuthenticated, isLoading } = useAppSelector(selectorAuth);
 
   useEffect(() => {
     const storageTheme = utilityGetTheme() || 'dark';
@@ -82,21 +84,25 @@ function App() {
   }, []);
 
   return (
-    <Provider store={store}>
+    <ThemeProvider themeSelected={theme}>
       <Global styles={globalStyles} />
-      <ThemeProvider themeSelected={theme}>
-        <BrowserRouter>
-          <Navbar />
-          <SwitchTheme theme={theme} setTheme={setTheme} />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="*" element={<Page404 />} />
-          </Routes>
-        </BrowserRouter>
-        <SelectLanguage />
-      </ThemeProvider>
-    </Provider>
+      <BrowserRouter>
+        <Navbar />
+        <SwitchTheme theme={theme} setTheme={setTheme} />
+        <Routes>
+          {isAuthenticated || isLoading ? (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+            </>
+          ) : (
+            <Route path="/" element={<Login />} />
+          )}
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      </BrowserRouter>
+      <SelectLanguage />
+    </ThemeProvider>
   );
 }
 
