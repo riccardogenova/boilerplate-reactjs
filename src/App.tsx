@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Navbar } from './components-shared/Navbar';
+import { SelectLanguage } from './components-shared/SelectLanguage';
 import { SwitchTheme } from './components-shared/SwitchTheme';
 import { About } from './pages/about';
 import { Home } from './pages/home';
@@ -93,6 +94,7 @@ function App() {
             <Route path="*" element={<Page404 />} />
           </Routes>
         </BrowserRouter>
+        <SelectLanguage />
       </ThemeProvider>
     </Provider>
   );

@@ -2,12 +2,12 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 
-import { sliceGeneral } from './example/slice';
+import { sliceLocale } from './locale/slice';
 
 export const createStore = () => {
   const store = configureStore({
     reducer: {
-      example: sliceGeneral.reducer,
+      locale: sliceLocale.reducer,
     },
   });
 
