@@ -144,7 +144,7 @@
     "react/button-has-type": "warn",
     "react/require-default-props": "off",
     "react/no-array-index-key": "off",
-    "no-console": "warn",
+    "no-console": ["warn", { "allow": ["error"] }],
     "import/order": [
       "error",
       {

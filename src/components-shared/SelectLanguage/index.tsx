@@ -38,7 +38,7 @@ const StyledSelectedLanguage = styled.div({
 
 // #endregion
 
-const utilitySaveToLocalStorage = (ref: string, data: any): void => {
+const utilitySaveToLocalStorage = (ref: string, data: string): void => {
   if (typeof window === 'object') localStorage.setItem(ref, JSON.stringify(data));
 };
 

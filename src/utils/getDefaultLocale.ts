@@ -9,7 +9,7 @@ export type TObjectValues<TO> = TO[keyof TO];
 
 export type TLocale = TObjectValues<typeof TLanguage>;
 
-export const utilityGetFromLocalStorage = (ref: string, def: any) => {
+export const utilityGetFromLocalStorage = (ref: string, def: string | null) => {
   if (!ref) return {};
   const storage = localStorage.getItem(ref);
   return storage ? JSON.parse(storage) : def;
