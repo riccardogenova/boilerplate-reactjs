@@ -1,7 +1,5 @@
 /** @format */
 
-import React from 'react';
-
 import { UIButton } from '.';
 
 const story = {
