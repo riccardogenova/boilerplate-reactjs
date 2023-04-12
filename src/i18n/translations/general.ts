@@ -12,6 +12,7 @@ export const translationsGeneral = {
   'go-back': { it: 'Torna indietro', en: 'Go back' },
   edit: { it: 'Modifica', en: 'Edit' },
   save: { it: 'salva e aggiorna.', en: 'and save to reload.' },
+  login: { it: 'Accedi', en: 'Login' },
 };
 
 export type TTranslationsGeneral = keyof Translations;
