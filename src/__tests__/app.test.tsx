@@ -1,13 +1,19 @@
 /** @format */
 
-import { render, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
-import App from '../App';
+import { UIButton } from '../components-ui/Button';
 
-describe('App', () => {
-  it('renders a heading', () => {
-    render(<App />);
-    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+describe('Button login', () => {
+  it('should display the button text and be clickable', () => {
+    const buttonText = 'Login';
+    const onClick = jest.fn();
+    const { getByText } = render(<UIButton onClick={onClick} label={buttonText} />);
+    const buttonElement = getByText(buttonText);
+
+    expect(buttonElement).toBeInTheDocument();
+    fireEvent.click(buttonElement);
+    expect(onClick).toHaveBeenCalled();
   });
 });
