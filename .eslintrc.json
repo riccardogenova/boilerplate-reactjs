@@ -53,7 +53,7 @@
         "format": ["PascalCase"],
         "prefix": ["is", "should", "has", "can", "did", "will"]
       },
-      //const only write in camelCase or UPPER_CASE
+      //const only write in camelCase or UPPER_CASE or PascalCase
       {
         "selector": "variable",
         "modifiers": ["const"],

@@ -203,39 +203,51 @@ export const ${componentName} = () => {
 
       if (hasTest) {
         componentContent = `
-  /** @format */
-import React from 'react';
-
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
 
 import { ${componentName} } from '../${componentTypeKey}/${
           componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName
         }';
-      
+import { store } from '../redux/createStore';
+        
 describe('${componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName}', () => {
   test('renders without errors', () => {
-    const { getByText } = render(<${componentName} label="Click Me" />);
-    const componentElement = getByText('Click Me');
-    expect(componentElement).toBeInTheDocument();
+   render(
+    <Provider store={store}>
+    <${componentName} />
+    </Provider>,);
+    expect(screen.getByText('Insert your text')).toBeInTheDocument();
   });
-});
-            
+});         
 `;
         const componentFilePath = path.join(
-          'src/tests',
-          `${componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName}.test.jsx`,
+          'src/__tests__',
+          `${
+            componentTypeKey === 'components-ui' ? componentName.slice(2).toLowerCase() : componentName.toLowerCase()
+          }.test.tsx`,
         );
         fs.writeFileSync(componentFilePath, componentContent);
       }
       if (hasStory) {
         componentContent = `
-import { ${componentName} } from '.';
+import { Provider } from 'react-redux';
 
-export default {
+import { ${componentName} } from '.';
+import { store } from '../../redux/createStore';
+
+const story = {
   title: "${componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName}",
   component: ${componentName},
 }
-export const Component = () => <${componentName} />;
+export const Component = () => (
+  <Provider store={store}>
+    <${componentName} />
+  </Provider>
+);
+
+export default story;
         `;
 
         const componentFilePath = path.join(
