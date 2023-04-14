@@ -73,7 +73,7 @@ export const SwitchTheme = memo(({ theme, setTheme }: Props) => {
 
   return (
     <CheckBoxWrapper onChange={onChange}>
-      <CheckBox id="checkbox" type="checkbox" />
+      <CheckBox id="checkbox" type="checkbox" checked={theme === 'light'} />
       <CheckBoxLabel htmlFor="checkbox" />
     </CheckBoxWrapper>
   );

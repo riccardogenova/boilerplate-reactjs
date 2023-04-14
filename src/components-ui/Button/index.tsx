@@ -40,7 +40,7 @@ const StyledButton = styled.button(({ disabled, theme }: { disabled: boolean; th
 
 // #endregion
 
-interface Props {
+export interface Props {
   disabled?: boolean;
   onClick?: () => void;
   label: string;
@@ -48,21 +48,23 @@ interface Props {
   onMouseLeave?: () => void;
 }
 
-export const UIButton = memo(({ disabled = false, onClick, label, onMouseEnter, onMouseLeave }: Props) => {
-  const storageTheme = utilityGetTheme() || 'dark';
-  const { dark, light } = themeSelector;
+export const UIButton = memo(
+  ({ disabled = false, onClick, label = 'abilitato', onMouseEnter, onMouseLeave }: Props) => {
+    const storageTheme = utilityGetTheme() || 'dark';
+    const { dark, light } = themeSelector;
 
-  return (
-    <div>
-      <StyledButton
-        theme={storageTheme === 'light' ? light : dark}
-        disabled={disabled}
-        onClick={onClick}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
-        {label}
-      </StyledButton>
-    </div>
-  );
-});
+    return (
+      <div>
+        <StyledButton
+          theme={storageTheme === 'light' ? light : dark}
+          disabled={disabled}
+          onClick={onClick}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
+          {label}
+        </StyledButton>
+      </div>
+    );
+  },
+);

@@ -1,14 +1,18 @@
 /** @format */
 
-import { UIButton } from '.';
+import { UIButton, Props } from '.';
 
 const story = {
   title: 'UIButton',
   component: UIButton,
+  argTypes: {},
 };
 
-export const Disabled = () => <UIButton label="Disabilitato" disabled />;
+export const Button = (props: Props) => <UIButton {...props} />;
 
-export const NotDisabled = () => <UIButton label="Abilitato" />;
+Button.argTypes = {
+  label: 'Abilitato',
+  disabled: false,
+};
 
 export default story;
