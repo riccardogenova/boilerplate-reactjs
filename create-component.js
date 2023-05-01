@@ -118,7 +118,7 @@ const Styled${componentName.slice(2)}Container = styled.div\({
 \});
 // #endregion  
 
-interface Props {
+export interface Props {
   label?: TTranslationsGeneral;
   /* Add your props here */
 }
@@ -145,7 +145,7 @@ const Styled${componentName}Container = styled.div\({
 \});
 // #endregion  
 
-interface Props {
+export interface Props {
   label?: TTranslationsGeneral;
   /* Add your props here */
 }
@@ -217,7 +217,8 @@ describe('${componentTypeKey === 'components-ui' ? componentName.slice(2) : comp
    render(
     <Provider store={store}>
     <${componentName} />
-    </Provider>,);
+    </Provider>,
+    );
     expect(screen.getByText('Insert your text')).toBeInTheDocument();
   });
 });         
@@ -234,18 +235,23 @@ describe('${componentTypeKey === 'components-ui' ? componentName.slice(2) : comp
         componentContent = `
 import { Provider } from 'react-redux';
 
-import { ${componentName} } from '.';
+import { Props, ${componentName} } from '.';
 import { store } from '../../redux/createStore';
 
 const story = {
   title: "${componentTypeKey === 'components-ui' ? componentName.slice(2) : componentName}",
   component: ${componentName},
+  argTypes: {},
 }
-export const Component = () => (
+export const Component = (props:Props) => (
   <Provider store={store}>
-    <${componentName} />
+    <${componentName} {...props}/>
   </Provider>
 );
+
+Component.argTypes = {
+  label: 'default',
+};
 
 export default story;
         `;
